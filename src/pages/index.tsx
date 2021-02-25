@@ -1,3 +1,4 @@
+import { FC, useEffect } from 'react'
 import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
 import {
   Avatar,
@@ -10,11 +11,31 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useSession } from 'next-auth/client'
 
 import { Footer } from '../components/Footer'
 import { Hero } from '../components/Hero'
 import { Main } from '../components/Main'
+
+type ComponentProps = {
+  greet: (text: string) => void
+}
+const Component: FC<ComponentProps> = ({ greet }) => {
+  useEffect(() => {
+    greet('hello from rrrrrrrust')
+  }, [greet])
+  return <div>gg</div>
+}
+
+const RustComponent = dynamic({
+  loader: async () => {
+    // Import the wasm module
+    const rustModule = await import('../wasm/pkg/wasm')
+    // Return a React component that calls the add_one method on the wasm module
+    return () => <Component greet={rustModule.greet} />
+  },
+})
 
 const Index: NextPage = () => {
   const [session] = useSession()
@@ -38,6 +59,7 @@ const Index: NextPage = () => {
     <>
       <Hero />
       <Main>
+        <RustComponent />
         <Text>
           Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
           <Code>typescript</Code>.
