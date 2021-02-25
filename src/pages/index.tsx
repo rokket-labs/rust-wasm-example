@@ -1,14 +1,7 @@
-import { ChangeEvent, FC, useState } from 'react'
-import { Code, Flex, Heading, Spacer, Text, Textarea } from '@chakra-ui/react'
+import { ChangeEvent, useState } from 'react'
+import { Code, Flex, Heading, Text, Textarea } from '@chakra-ui/react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
-
-type ComponentProps = {
-  language: string
-}
-const Component: FC<ComponentProps> = ({ language }) => {
-  return <div>Language: {language} 🚀🎉</div>
-}
 
 const RustComponent = dynamic<{ text: string }>({
   loader: async () => {
@@ -16,7 +9,7 @@ const RustComponent = dynamic<{ text: string }>({
     const rustModule = await import('../wasm/pkg/wasm')
     // Return a React component that calls the add_one method on the wasm module
     return ({ text = '' }) => (
-      <Component language={rustModule.summarization(text)} />
+      <Text fontSize="2xl">Language: {rustModule.detect_lang(text)} 🚀🎉</Text>
     )
   },
 })

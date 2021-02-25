@@ -10,6 +10,7 @@ export const MainLayout: React.FC = ({ children }) => {
       <Container height="100vh">
         {children}
         <DarkModeSwitch />
+        <CTA />
       </Container>
     </AnimateSharedLayout>
   )

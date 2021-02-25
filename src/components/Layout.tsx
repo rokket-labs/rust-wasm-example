@@ -1,7 +1,6 @@
 import { AnimateSharedLayout } from 'framer-motion'
 
 import { Container } from './Container'
-import { CTA } from './CTA'
 import { DarkModeSwitch } from './DarkModeSwitch'
 
 export const Layout: React.FC = ({ children }) => {
